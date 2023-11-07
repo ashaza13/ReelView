@@ -1,8 +1,10 @@
-import './App.css';
+import React from 'react';
+import styles from './style';
+import { Card, Nav } from './components';
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
       Hello World!
     </div>
   );
