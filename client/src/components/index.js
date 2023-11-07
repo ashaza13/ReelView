@@ -1,4 +1,4 @@
 import Card from './Card.js';
-import Nav from './Nav.js';
+import Navbar from './Navbar.js';
 
-export { Card, Nav };
+export { Card, Navbar };
