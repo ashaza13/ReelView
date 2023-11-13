@@ -138,3 +138,11 @@
   background: rgba(255, 255, 255, 0.6);
   filter: blur(750px);
 }
+
+.bg-theme {
+  background-image: linear-gradient(0.2deg, rgba(82, 82, 82,1) 4.8%, rgb(23, 23, 23) 85.5%);
+}
+
+.clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 65%);
+}

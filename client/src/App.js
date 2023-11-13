@@ -1,18 +1,18 @@
 import React from 'react';
 import styles from './style';
-import { Card, Navbar } from './components';
+import { Card, Navbar, Hero } from './components';
 
 function App() {
   return (
-    <div className="bg-neutral-900 w-full overflow-hidden">
-      <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+    <div className="w-full overflow-hidden">
+      <div className={`bg-neutral-900 ${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
           <Navbar />
         </div>
       </div>
-      <div className={`bg-white ${styles.paddingX} ${styles.flexStart}`}>
+      <div className={`${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
-          Hero
+          <Hero />
         </div>
       </div>
     </div>
