@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style';
-import { Card, Navbar, Hero } from './components';
+import { Card, Navbar, Hero, Movies } from './components';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <div className={`${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Hero />
+          <Movies />
         </div>
       </div>
     </div>
