@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './style';
-import { Navbar, Hero, Movies, Footer } from './components';
+import { Navbar, Hero, Movies, Footer, Carousel } from './components';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <div className={`${styles.boxWidth}`}>
           <Hero />
           <Movies />
+          <Carousel />
           <Footer />
         </div>
       </div>

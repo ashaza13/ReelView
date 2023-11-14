@@ -4,5 +4,6 @@ import Hero from './Hero.js';
 import Movies from './Movies.js';
 import Footer from './Footer.js';
 import TVShows from './TVShows.js';
+import Carousel from './Carousel.js';
 
-export { Card, Navbar, Hero, Movies, Footer, TVShows };
+export { Card, Navbar, Hero, Movies, Footer, TVShows, Carousel };
