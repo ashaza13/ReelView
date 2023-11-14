@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './style';
-import { Card, Navbar, Hero, Movies } from './components';
+import { Navbar, Hero, Movies, Footer } from './components';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <div className={`${styles.boxWidth}`}>
           <Hero />
           <Movies />
+          <Footer />
         </div>
       </div>
     </div>
