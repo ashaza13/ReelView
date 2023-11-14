@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './style';
-import { Navbar, Hero, Movies, Footer, Carousel } from './components';
+import { Navbar, Footer, Home, TVShows, Login, MovieDescription } from './components';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -12,9 +13,12 @@ function App() {
       </div>
       <div className={`${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
-          <Hero />
-          <Movies />
-          <Carousel />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tvshows" element={<TVShows />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/movie/:id' element={<MovieDescription />} />
+          </Routes>
           <Footer />
         </div>
       </div>

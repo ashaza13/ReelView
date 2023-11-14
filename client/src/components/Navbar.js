@@ -16,7 +16,7 @@ const Navbar = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] ${
+            className={`font-poppins font-normal cursor-pointer text-[16px] transition hover:text-neutral-300 ${
               active === nav.title ? "text-white" : "text-slate-200"
             } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             onClick={() => setActive(nav.title)}
@@ -24,7 +24,7 @@ const Navbar = () => {
             <Link to={`/${nav.id}`}>{nav.title}</Link>
           </li>
         ))}
-        <li>Log In</li>
+        <Link to="/login"><li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md">Log In</li></Link>
       </ul>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">

@@ -33,7 +33,7 @@ const Carousel = () => {
     });
 
     return (
-        <div className={`overflow-hidden relative`}>
+        <div className={`overflow-hidden relative h-96`}>
             <div className={`flex transition ease-out`} style={{transform: `translateX(-${current * 100}%)`}}>
                 {movies.slice(0, 5).map((movie, index) => (
                     <CarouselCard key={index} title={movie.title} image={movie.backdrop_path} description={movie.overview} releaseDate={movie.release_date} trailer={movie.video} />

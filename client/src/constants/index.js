@@ -11,8 +11,4 @@ export const navLinks = [
       id: "discussions",
       title: "Discussions",
     },
-    {
-      id: "login",
-      title: "Log In",
-    },
   ];
