@@ -37,7 +37,6 @@ const Carousel = () => {
             <div className={`flex transition ease-out`} style={{transform: `translateX(-${current * 100}%)`}}>
                 {movies.slice(0, 5).map((movie, index) => (
                     <CarouselCard key={index} title={movie.title} image={movie.backdrop_path} description={movie.overview} releaseDate={movie.release_date} trailer={movie.video} />
-                    // <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} className="w-full h-1/5" />
                 ))}
             </div>
 

@@ -9,5 +9,6 @@ import Login from './Login.js';
 import MovieDescription from './MovieDescription.js';
 import Home from './Home.js';
 import TopRated from './TopRated.js';
+import CircleRating from './CircleRating.js';
 
-export { Card, Navbar, Hero, Movies, Footer, TVShows, Carousel, Login, MovieDescription, Home, TopRated };
+export { Card, Navbar, Hero, Movies, Footer, TVShows, Carousel, Login, MovieDescription, Home, TopRated, CircleRating };

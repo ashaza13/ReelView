@@ -27,6 +27,8 @@ const Movies = () => {
                         description={movie.overview}
                         image={movie.poster_path}
                         id={movie.id}
+                        releaseDate={movie.release_date}
+                        rating={movie.vote_average}
                     />
                 ))}
             </div>
