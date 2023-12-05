@@ -19,9 +19,9 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/movie/:id' element={<MovieDescription />} />
           </Routes>
-          <Footer />
         </div>
       </div>
+          <Footer />
     </div>
   );
 }

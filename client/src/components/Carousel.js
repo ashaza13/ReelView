@@ -1,64 +1,76 @@
 import React, { useEffect, useState } from "react";
-import CarouselCard from "./CarouselCard";
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import { FaPlay } from "react-icons/fa";
+import styles from "../style";
 
 const Carousel = () => {
-    const [movies, setMovies] = useState([]);
+    const [movieData, setMovieData] = useState([]);
+    const [currentMovie, setCurrentMovie] = useState();
+    const [loading, setLoading] = useState(true);
 
-    let [current, setCurrent] = useState(0);
-
-    let previousSlide = () => {
-        if (current === 0) {
-            setCurrent(4);
-        } else {
-            setCurrent(current - 1);
-        }
-    }
-
-    let nextSlide = () => {
-        if (current === 4) {
-            setCurrent(0);
-        } else {
-            setCurrent(current + 1);
-        }
-    }
 
     useEffect(() => {
         fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=de015c833c7c3bc03c8a7037876358a7&language=en-US&page=1')
             .then(response => response.json())
-            .then(response =>
-                setMovies(response.results)
-            )
-            .catch(err => console.error(err));
-    });
+            .then(response => {
+                setMovieData(response.results.slice(0, 5));
+                setLoading(false);
+                setCurrentMovie(response.results[0]);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }, []); // Empty dependency array ensures this useEffect runs only once on mount
 
-    return (
-        <div className={`overflow-hidden relative h-96`}>
-            <div className={`flex transition ease-out`} style={{transform: `translateX(-${current * 100}%)`}}>
-                {movies.slice(0, 5).map((movie, index) => (
-                    <CarouselCard key={index} title={movie.title} image={movie.backdrop_path} description={movie.overview} releaseDate={movie.release_date} trailer={movie.video} />
-                ))}
+    const updateHover = (movie) => {
+        setCurrentMovie(movie);
+    }
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
+    else {
+        return (
+            <div className="relative h-[24rem]">
+                <div
+                    className="relative h-full flex items-center justify-center transition-opacity duration-500 ease-in-out"
+                    style={{
+                        backgroundImage: `url(https://image.tmdb.org/t/p/original${currentMovie.backdrop_path})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        transition: 'all 0.5s ease-in-out',
+                    }}
+                >
+                    <div className="absolute inset-0 bg-orange-800 opacity-75 transition duration-500 ease-in-out"></div>
+
+                    <div className="absolute top-0 left-14 p-4 text-white font-bold text-2xl">Latest Trailers</div>
+
+                    <div className={`flex overflow-x-auto space-x-4 items-center ${styles.paddingX}`}>
+                        {movieData.map((movie, index) => (
+                            <div key={index} className="relative inline-block w-full hover:scale-105 transition" onMouseOver={() => updateHover(movie)}>
+                                <div className="flex flex-col items-center justify-center">
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                                        alt={movie.title}
+                                        className="mb-2 rounded-md shadow-md"
+                                    />
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                        <FaPlay className="text-white text-4xl cursor-pointer hover:scale-105 transition relative z-10" />
+                                    </div>
+                                </div>
+                                <div className="text-center mt-1">
+                                    <p className="text-white font-semibold">{movie.title}</p>
+                                </div>
+                            </div>
+                        ))}
+
+
+                    </div>
+                </div>
             </div>
+        );
+    }
 
-            <div className="absolute top-0 h-full w-full justify-between items-center flex text-white px-10 text-3xl">
-                <button onClick={previousSlide}>
-                    <AiFillLeftCircle />
-                </button>
-                <button onClick={nextSlide}>
-                    <AiFillRightCircle />
-                </button>
-            </div>
 
-            <div className="absolute bottom-0 py-4 flex justify-center gap-3 w-full">
-               {movies.slice(0, 5).map((movie, index) => (
-                 <div onClick={() => (
-                    setCurrent(index)
-                 )} key={"circle" + index} className={`rounded-full w-2 h-2 cursor-pointer ${index==current ? "bg-white" : "bg-gray-500" }`}></div>
-               ))}
-            </div>
-
-        </div>
-    );
 };
 
 export default Carousel;
