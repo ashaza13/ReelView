@@ -1,7 +1,7 @@
 import React from "react";
 import { Hero, ScrollableMovies, Carousel } from '../components/index.js';
 
-const popularOptions = ["Today", "Tomorrow"];
+const popularOptions = ["Today", "This Week"];
 const topRatedOptions = ["Today", "Tomorrow"];
 
 const Home = () => {

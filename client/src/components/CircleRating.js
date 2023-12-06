@@ -8,13 +8,13 @@ const CircleRating = ({ rating }) => {
   let borderColor = '#ccc'; // Default border color
 
   if (percentage >= 75) {
-    borderColor = '#00ff00'; // Green
+    borderColor = '#22c55e'; // Green
   } else if (percentage >= 50) {
-    borderColor = '#ffff00'; // Yellow
+    borderColor = '#eab308'; // Yellow
   } else if (percentage >= 25) {
-    borderColor = '#ffa500'; // Orange
+    borderColor = '#ea580c'; // Orange
   } else if (percentage > 0) {
-    borderColor = '#ff0000'; // Red
+    borderColor = '#b91c1c'; // Red
   }
 
   return (

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../style";
 import { CircleRating, ScrollablePeople } from "./index";
+import { FaList, FaHeart, FaBookmark, FaStar, FaPlay } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const MovieDescription = () => {
     const [movie, setMovie] = useState();
@@ -35,7 +37,7 @@ const MovieDescription = () => {
                         className="relative h-[35rem]"
                         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                     >
-                        <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
+                        <div className="absolute inset-0 bg-gray-800 opacity-75"></div>
 
                         <div className={`absolute flex-2 flex items-center justify-center text-white ${styles.paddingX}`}>
                             <div className="max-w-sm p-8">
@@ -52,8 +54,15 @@ const MovieDescription = () => {
                                     ))}
                                     <p>{convertTime(movie.runtime)}</p>
                                 </div>
-                                <div className="flex py-4">
+                                <div className="flex flex-row py-4">
                                     <CircleRating rating={movie.vote_average} />
+                                    <ul className="ml-8 inline-flex items-center space-x-4">
+                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaList className="text-white"/></li></Link>
+                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaHeart /></li></Link>
+                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaBookmark /></li></Link>
+                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaStar /></li></Link>
+                                        <Link><li className="text-white flex items-center transition hover:opacity-50"><FaPlay className="pr-2"/>Play Trailer</li></Link>
+                                    </ul>
                                 </div>
                                 <p className="italic text-neutral-300">{movie.tagline}</p>
                                 <p className="font-semibold text-lg">Overview</p>
@@ -61,10 +70,29 @@ const MovieDescription = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`${styles.paddingX} ${styles.paddingY}`}>
-                        <div className="">
-                            <h1 className="text-3xl font-bold">Cast</h1>
-                            <ScrollablePeople title="" link={`https://api.themoviedb.org/3/movie/${id}/credits`} options={[]} />
+                    <div className={`${styles.paddingX} py-4 grid grid-cols-4 sm:py-8`}>
+                        <div className="col-span-3">
+                            <ScrollablePeople title="Cast" link={`https://api.themoviedb.org/3/movie/${id}/credits`} options={[]} />
+                        </div>
+                        <div className="flex flex-col space-y-2">
+                            <h3 className="font-bold">Status</h3>
+                            <p>{movie.status}</p>
+                            <h3 className="font-bold">Original Language</h3>
+                            <p>{movie.original_language}</p>
+                            <h3 className="font-bold">Budget</h3>
+                            <p>${movie.budget}</p>
+                            <h3 className="font-bold">Revenue</h3>
+                            <p>${movie.revenue}</p>
+                            <div>
+                                <h3 className="font-bold">Production Companies</h3>
+                                <div className="flex flex-col space-y-2">
+                                    {movie.production_companies.map((company, index) => (
+                                        <div key={index} >
+                                            <p>{company.name}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </>
@@ -74,18 +102,3 @@ const MovieDescription = () => {
 };
 
 export default MovieDescription;
-
-
-                // <div className={`(bg-[url(https://image.tmdb.org/t/p/original${movie.backdrop_path})] relative h-[30rem] w-full z-0`}>
-                //     {/* <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} className="object-cover h-full w-full absolute z-10 mix-blend-overlay"></img> */}
-                //     <div className={`${styles.paddingX} ${styles.paddingY} ${styles.flexStart}`}>
-                //         <div className={`${styles.paddingX}`}>
-                //             <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} className="object-contain shadow-lg rounded-md"></img>
-                //         </div>
-                //         <div>
-                //             <h1 className="text-3xl text-white font-bold">{movie.title}</h1>
-                //             <h2 className="text-xl text-white font-semibold">Overview</h2>
-                //             <p className="text-black">{movie.overview}</p>
-                //         </div>
-                //     </div>
-                // </div>
