@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './style';
-import { Navbar, Footer, Home, TVShows, Login, MovieDescription } from './components';
+import { Navbar, Footer, TVShows, Login, MovieDescription } from './components';
+import { Home } from './pages';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {

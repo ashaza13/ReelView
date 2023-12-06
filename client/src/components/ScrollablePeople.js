@@ -1,48 +1,53 @@
 import React, { useEffect } from "react";
 import styles from "../style";
-// import REACT_APP_TMDB_API_KEY from "../env";
 import { Card } from "./index";
 
-const TopRated = () => {
+const api_key = "de015c833c7c3bc03c8a7037876358a7";
 
-    const [topRated, setTopRated] = React.useState([]);
+const ScrollablePeople = ({ title, link }) => {
+
+    const [movies, setMovies] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=de015c833c7c3bc03c8a7037876358a7&language=en-US&page=1')
+        console.log(link);
+        fetch(`${link}?api_key=${api_key}&language=en-US&page=1`)
             .then(response => response.json())
             .then(response => {
-                setTopRated(response.results);
+                setMovies(response.cast);
                 setLoading(false);
+                console.log(title);
             }
             )
             .catch(err => console.error(err));
-    });
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>
     } else {
+
         return (
             <div className={`${styles.marginX}`}>
-                <h1 className={`pt-4 pb-5 font-bold text-xl`}>Top Rated Movies</h1>
+                <div className="flex pt-4 pb-5 items-center">
+                    <h1 className={`font-bold text-xl`}>{title}</h1>
+                </div>
                 <div className={`flex overflow-x-auto`}>
-                    {topRated.map((movie, index) => (
+                    {movies.map((movie, index) => (
                         <Card
                             key={index}
                             title={movie.title}
                             description={movie.overview}
-                            image={movie.poster_path}
+                            image={movie.profile_path}
                             id={movie.id}
                             releaseDate={movie.release_date}
+                            rating={movie.vote_average}
                         />
                     ))}
                 </div>
-                <div>
-
-                </div>
             </div>
         );
+
     }
 }
 
-export default TopRated;
+export default ScrollablePeople;

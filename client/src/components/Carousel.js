@@ -43,7 +43,6 @@ const Carousel = () => {
                     <div className="absolute inset-0 bg-orange-800 opacity-75 transition duration-500 ease-in-out"></div>
 
                     <div className="absolute top-0 left-14 p-4 text-white font-bold text-2xl">Latest Trailers</div>
-
                     <div className={`flex overflow-x-auto space-x-4 items-center ${styles.paddingX}`}>
                         {movieData.map((movie, index) => (
                             <div key={index} className="relative inline-block w-full hover:scale-105 transition" onMouseOver={() => updateHover(movie)}>
