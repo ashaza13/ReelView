@@ -54,7 +54,7 @@ const Carousel = () => {
                                         className="mb-2 rounded-md shadow-md"
                                     />
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <FaPlay className="text-white text-4xl cursor-pointer hover:scale-105 transition relative z-10" />
+                                        <FaPlay className="text-white shadow-md text-4xl cursor-pointer hover:scale-105 transition relative z-10" />
                                     </div>
                                 </div>
                                 <div className="text-center mt-1">

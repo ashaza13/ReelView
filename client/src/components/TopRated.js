@@ -33,6 +33,7 @@ const TopRated = () => {
                             description={movie.overview}
                             image={movie.poster_path}
                             id={movie.id}
+                            releaseDate={movie.release_date}
                         />
                     ))}
                 </div>
