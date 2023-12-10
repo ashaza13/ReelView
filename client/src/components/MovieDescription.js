@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../style";
-import { CircleRating, ScrollablePeople } from "./index";
+import { CircleRating, ScrollablePeople, Spinner } from "./index";
 import { FaList, FaHeart, FaBookmark, FaStar, FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const MovieDescription = () => {
     const [movie, setMovie] = useState();
     const [loading, setLoading] = useState(true);
+    const [signedIn, setSignedIn] = useState(false);
 
     const { id } = useParams();
 
     useEffect(() => {
+
+        const user = localStorage.getItem('userId');
+
+        if (user) {
+            setSignedIn(true);
+        }
+
         fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=de015c833c7c3bc03c8a7037876358a7&language=en-US&page=1')
             .then(response => response.json())
             .then(response => {
@@ -27,9 +35,13 @@ const MovieDescription = () => {
         return hours + "h " + mins + "m";
     }
 
+    const handleList = () => {
+        
+    }
+
     {
         if (loading) {
-            return <div>Loading...</div>
+            return <Spinner />;
         } else {
             return (
                 <>
@@ -57,11 +69,9 @@ const MovieDescription = () => {
                                 <div className="flex flex-row py-4">
                                     <CircleRating rating={movie.vote_average} />
                                     <ul className="ml-8 inline-flex items-center space-x-4">
-                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaList className="text-white"/></li></Link>
-                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaHeart /></li></Link>
-                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaBookmark /></li></Link>
-                                        <Link><li className="rounded-full bg-blue-950 p-4"><FaStar /></li></Link>
-                                        <Link><li className="text-white flex items-center transition hover:opacity-50"><FaPlay className="pr-2"/>Play Trailer</li></Link>
+                                        <li><button className="rounded-full bg-blue-950 p-4"><FaList className="text-white"/></button></li>
+                                        <li><button className="rounded-full bg-blue-950 p-4"><FaStar className="text-white"/></button></li>
+                                        <li><button className="text-white flex items-center transition hover:opacity-50"><FaPlay className="pr-2"/>Play Trailer</button></li>
                                     </ul>
                                 </div>
                                 <p className="italic text-neutral-300">{movie.tagline}</p>

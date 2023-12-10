@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "../style";
 import { Card } from "./index";
+import { Spinner } from "./index";
 
 const api_key = "de015c833c7c3bc03c8a7037876358a7";
 
@@ -26,7 +27,7 @@ const ScrollableMovies = ({ title, link, options }) => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>
+        return <Spinner />;
     } else {
 
         return (

@@ -113,6 +113,22 @@ app.post("/api/register", (req, res) => {
   }
 });
 
+// Get user info route
+app.get("/api/user/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then((data) => {
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(400).json({ error: "User not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Something went wrong" });
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

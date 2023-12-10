@@ -5,9 +5,14 @@ import { navLinks } from "../constants";
 import { Link } from "react-router-dom";
 import { BsFillCameraReelsFill } from "react-icons/bs";
 
-const Navbar = () => {
+const Navbar = ( {signedIn, setSignedIn} ) => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+
+  const handleLogout = () => {
+    setSignedIn(false);
+    localStorage.removeItem("userId");
+  }
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
@@ -25,7 +30,7 @@ const Navbar = () => {
             <Link to={`/${nav.id}`}>{nav.title}</Link>
           </li>
         ))}
-        <Link to="/login"><li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md">Log In</li></Link>
+        {signedIn ? <li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md" onClick={handleLogout}>Log Out</li> : <Link to="/login"><li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md">Log In</li></Link>}
       </ul>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">

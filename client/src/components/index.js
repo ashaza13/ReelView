@@ -10,5 +10,7 @@ import CircleRating from './CircleRating.js';
 import ScrollableMovies from './ScrollableMovies.js';
 import ScrollablePeople from './ScrollablePeople.js';
 import PersonCard from './PersonCard.js';
+import Register from './Register.js';
+import Spinner from './Spinner.js';
 
-export { Card, Navbar, Hero, Footer, TVShows, Carousel, Login, MovieDescription, CircleRating, ScrollableMovies, ScrollablePeople, PersonCard };
+export { Card, Navbar, Hero, Footer, TVShows, Carousel, Login, MovieDescription, CircleRating, ScrollableMovies, ScrollablePeople, PersonCard, Register, Spinner };
