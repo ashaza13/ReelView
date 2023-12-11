@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../style";
 import { Spinner } from "./index";
 import { ReviewCard } from "./index";
+import { NotificationManager } from 'react-notifications';
 
+// Reviews component
 const Reviews = ({ movieId }) => {
     const [review, setReview] = React.useState("");
     const [rating, setRating] = React.useState(0);
@@ -54,10 +56,14 @@ const Reviews = ({ movieId }) => {
                 setReview("");
                 setRating(0);
                 fetchReviews();
+                NotificationManager.success('Review added successfully!');
             }
             else if (response.status === 400) {
                 console.log("Error");
             }
+        } else {
+            console.log("You must be logged in to add a review!");
+            NotificationManager.error('You must be logged in to add a review!');
         }
     };
 

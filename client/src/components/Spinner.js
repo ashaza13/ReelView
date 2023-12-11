@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../style';
 
+// Spinner component
 const Spinner = () => {
   return (
     <div className={`flex items-center justify-center ${styles.marginY}`}>

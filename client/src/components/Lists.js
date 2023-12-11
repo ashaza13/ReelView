@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../style";
 import { Card } from "./index";
 import { Spinner } from "./index";
 
 const api_key = "de015c833c7c3bc03c8a7037876358a7";
 
+// Lists component
 const Lists = ({ arr, title }) => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);

@@ -202,7 +202,7 @@ app.put("/api/user/:id/watchList", (req, res) => {
   User.findById(req.params.id)
     .then((data) => {
       if (data) {
-        
+
         if (data.watchList.includes(req.body.movieId)) {
           res.status(400).json({ error: "Movie already in watch list" });
           return;
@@ -246,22 +246,22 @@ app.post("/api/review", (req, res) => {
   });
 });
 
-// Get reviews route
-app.get("/api/movie/:id/reviews", (req, res) => {
-  Review.find({ movieId: req.params.id })
-    .then((data) => {
-      if (data) {
-        res.status(200).json(data);
-      } else {
-        res.status(400).json({ error: "Reviews not found" });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: "Something went wrong" });
-    });
-});
+  // Get reviews route
+  app.get("/api/movie/:id/reviews", (req, res) => {
+    Review.find({ movieId: req.params.id })
+      .then((data) => {
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          res.status(400).json({ error: "Reviews not found" });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: "Something went wrong" });
+      });
+  });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+  app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
+  });

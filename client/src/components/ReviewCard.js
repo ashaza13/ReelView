@@ -8,6 +8,7 @@ const options = {
     minute: 'numeric'
 };
 
+// ReviewCard component
 const ReviewCard = ({ userId, review, rating, date }) => {
     const [username, setUsername] = React.useState("");
 

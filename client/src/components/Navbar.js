@@ -3,10 +3,11 @@ import { useState } from "react";
 import { close, menu } from "../assets";
 import { navLinks } from "../constants";
 import { Link } from "react-router-dom";
-import { BsFillCameraReelsFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
+import { NotificationManager } from "react-notifications";
 
+// Navbar component
 const Navbar = ( {signedIn, setSignedIn} ) => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
@@ -16,12 +17,13 @@ const Navbar = ( {signedIn, setSignedIn} ) => {
   const handleLogout = () => {
     setSignedIn(false);
     localStorage.removeItem("userId");
+    NotificationManager.success('You have successfully logged out!');
     navigate("/");
   }
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
-      <img src='#' alt="ReelView" className="w-[124px] h-[32px] text-white" />
+      <h1 className="text-white font-bold text-2xl">ReelView</h1>
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (

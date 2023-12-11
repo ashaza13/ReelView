@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa";
 import styles from "../style";
 
+// Carousel component for upcoming movies
 const Carousel = () => {
     const [movieData, setMovieData] = useState([]);
     const [currentMovie, setCurrentMovie] = useState();
@@ -42,7 +42,7 @@ const Carousel = () => {
                 >
                     <div className="absolute inset-0 bg-orange-800 opacity-75 transition duration-500 ease-in-out"></div>
 
-                    <div className="absolute top-0 left-14 p-4 text-white font-bold text-2xl">Latest Trailers</div>
+                    <div className="absolute top-0 left-14 p-4 text-white font-bold text-2xl">Upcoming Movies</div>
                     <div className={`flex overflow-x-auto space-x-4 items-center ${styles.paddingX}`}>
                         {movieData.map((movie, index) => (
                             <div key={index} className="relative inline-block w-full hover:scale-105 transition" onMouseOver={() => updateHover(movie)}>
@@ -52,17 +52,12 @@ const Carousel = () => {
                                         alt={movie.title}
                                         className="mb-2 rounded-md shadow-md"
                                     />
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <FaPlay className="text-white shadow-md text-4xl cursor-pointer hover:scale-105 transition relative z-10" />
-                                    </div>
                                 </div>
                                 <div className="text-center mt-1">
                                     <p className="text-white font-semibold">{movie.title}</p>
                                 </div>
                             </div>
                         ))}
-
-
                     </div>
                 </div>
             </div>

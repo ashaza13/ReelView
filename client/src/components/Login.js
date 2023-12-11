@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../style";
-import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { Link } from 'react-router-dom';
 
+// Login component
 const Login = ({ setSignedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +46,6 @@ const Login = ({ setSignedIn }) => {
 
           if (userId) {
             // The user was logged in successfully
-            NotificationManager.success('You have successfully logged in!');
             localStorage.setItem("userId", userId);
             setSignedIn(true);
             navigate("/profile");

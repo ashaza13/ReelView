@@ -4,9 +4,8 @@ import { Hero, ScrollableMovies, Carousel } from '../components/index.js';
 const popularOptions = ["Today", "This Week"];
 const topRatedOptions = ["Today", "Tomorrow"];
 
-const Home = ({ signedIn }) => {
-
-
+// Home page
+const Home = () => {
     return (
         <>
             <Hero />

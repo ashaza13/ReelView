@@ -1,17 +1,28 @@
 import React from "react";
 import styles from "../style";
+import { useNavigate } from "react-router-dom";
 
+// Hero component
 const Hero = () => {
     const [searchQuery, setSearchQuery] = React.useState('');
 
-    const click = () => {
+    const navigate = useNavigate();
 
+    // Handle search query
+    const handleClick = () => {
+        if (searchQuery === '') {
+            return;
+        }
+
+        console.log(searchQuery);
+        navigate(`/search/${searchQuery}`);
     };
 
+    // Handle search query
     const handleChange = event => {
         setSearchQuery(event.target.value);
     }
-    
+
     return (
         <>
             <div className={`relative h-auto w-auto flex flex-col`}>
@@ -21,9 +32,20 @@ const Hero = () => {
                         <div className={`py-4`}>
                             <p className="text-white text-xl">ReelView is a movie review app that allows users to search for movies and leave reviews for them.</p>
                         </div>
-                        <div className={`flex flex-col`}>
-                            <input type="text" className={`rounded-full px-5 py-3 transition shadow-md outline-none hover:scale-105`} onChange={handleChange} placeholder="Search for a movie..." name="searchQuery" />
-                            {/* <button onClick={click} className={`-m-4`}>Search</button> */}
+                        <div className="flex items-center shadow-lg hover:scale-105 transition">
+                            <input
+                                type="text"
+                                className="w-full rounded-l-full px-5 py-3 focus:outline-none"
+                                placeholder="Search for a Movie..."
+                                value={searchQuery}
+                                onChange={handleChange}
+                            />
+                            <button
+                                onClick={handleClick}
+                                className="bg-orange-500 text-white rounded-r-full px-4 py-3 focus:outline-none"
+                            >
+                                Submit
+                            </button>
                         </div>
                     </div>
                 </div>

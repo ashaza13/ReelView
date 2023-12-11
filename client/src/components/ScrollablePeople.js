@@ -4,6 +4,7 @@ import { PersonCard } from "./index";
 
 const api_key = "de015c833c7c3bc03c8a7037876358a7";
 
+// ScrollablePeople component
 const ScrollablePeople = ({ title, link }) => {
 
     const [cast, setCast] = React.useState([]);

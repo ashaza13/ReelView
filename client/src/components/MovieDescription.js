@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../style";
 import { CircleRating, ScrollablePeople, Spinner, Reviews } from "./index";
-import { FaList, FaHeart, FaBookmark, FaStar, FaPlay } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { FaList, FaStar } from "react-icons/fa";
+import { NotificationManager } from 'react-notifications';
 
+
+// MovieDescription component
 const MovieDescription = () => {
     const [movie, setMovie] = useState();
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,6 @@ const MovieDescription = () => {
     const { id } = useParams();
 
     useEffect(() => {
-
         const user = localStorage.getItem('userId');
 
         if (user) {
@@ -28,7 +28,8 @@ const MovieDescription = () => {
                 setLoading(false);
             })
             .catch(err => console.error(err));
-    });
+
+    }, []);
 
     const convertTime = (minutes) => {
         let hours = Math.floor(minutes / 60);
@@ -139,7 +140,6 @@ const MovieDescription = () => {
                                     <ul className="ml-8 inline-flex items-center space-x-4">
                                         <li><button className="rounded-full bg-blue-950 p-4" onClick={handleWatchList}><FaList className="text-white" /></button></li>
                                         <li><button className="rounded-full bg-blue-950 p-4" onClick={handleFavorite}><FaStar className="text-white" /></button></li>
-                                        <li><button className="text-white flex items-center transition hover:opacity-50"><FaPlay className="pr-2" />Play Trailer</button></li>
                                     </ul>
                                 </div>
                                 <p className="italic text-neutral-300">{movie.tagline}</p>

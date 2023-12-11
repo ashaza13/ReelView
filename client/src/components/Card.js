@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from '../style.js';
 import { Link } from 'react-router-dom';
-import { CircleRating } from './index.js';
 
+// Set date options
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+// Card component for movies
 const Card = ({ title, image, releaseDate, rating, id }) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-
     return (
         <div>
             <div className={`flex flex-col pl-5 gap-2 pb-4`}>

@@ -4,6 +4,7 @@ import styles from "../style";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { Link } from 'react-router-dom';
 
+// Register component
 const Register = ({ setSignedIn }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

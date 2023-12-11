@@ -1,8 +1,7 @@
 import React from 'react';
 
+// Card component for people
 const PersonCard = ({ name, role, image }) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-
     return (
         <div>
             <div className={`flex flex-col gap-1 pb-4`}>
