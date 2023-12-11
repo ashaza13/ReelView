@@ -16,7 +16,7 @@ const Footer = () => {
                         <p className="text-white">Ashaz Ahmed</p>
                         <p className="text-white">Jae Trim</p>
                         <p className="text-white">Braden Peacock</p>
-                        <p className="text-white">Mo</p>
+                        <p className="text-white">Mohammad Mian</p>
                     </div>
                 </div>
             </div>
