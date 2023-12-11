@@ -4,14 +4,19 @@ import { close, menu } from "../assets";
 import { navLinks } from "../constants";
 import { Link } from "react-router-dom";
 import { BsFillCameraReelsFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { IoPersonSharp } from "react-icons/io5";
 
 const Navbar = ( {signedIn, setSignedIn} ) => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     setSignedIn(false);
     localStorage.removeItem("userId");
+    navigate("/");
   }
 
   return (
@@ -30,7 +35,8 @@ const Navbar = ( {signedIn, setSignedIn} ) => {
             <Link to={`/${nav.id}`}>{nav.title}</Link>
           </li>
         ))}
-        {signedIn ? <li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md" onClick={handleLogout}>Log Out</li> : <Link to="/login"><li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md">Log In</li></Link>}
+        {signedIn && <Link to="/profile"><li className="flex bg-gray-500 rounded-full w-8 h-8 items-center justify-center text-white ml-10 transition hover:scale-[1.04] shadow-md"><IoPersonSharp /></li></Link>}
+        {signedIn ? <li><button className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition shadow-md" onClick={handleLogout}>Log Out</button></li> : <Link to="/login"><li className="bg-orange-500 rounded-md px-3 py-1 text-white ml-10 transition hover:scale-[1.04] shadow-md">Log In</li></Link>}
       </ul>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">

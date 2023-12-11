@@ -45,6 +45,16 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
+const ReviewSchema = new mongoose.Schema({
+  movieId: Number,
+  review: String,
+  rating: Number,
+  userId: String,
+  date: Date
+});
+
+const Review = mongoose.model("Review", ReviewSchema);
+
 // Define users model
 const User = mongoose.model("User", userSchema);
 
@@ -102,7 +112,7 @@ app.post("/api/register", (req, res) => {
           });
 
           newUser.save().then(() => {
-            res.status(200).json({ success: true });
+            res.status(200).json({ success: true, userId: newUser._id });
           }
           ).catch((err) => {
             console.log(err);
@@ -121,6 +131,129 @@ app.get("/api/user/:id", (req, res) => {
         res.status(200).json(data);
       } else {
         res.status(400).json({ error: "User not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Something went wrong" });
+    });
+});
+
+// Update user info route
+app.put("/api/user/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then((data) => {
+      if (data) {
+        data.favoriteMovies = req.body.favoriteMovies;
+        data.watchList = req.body.watchList;
+        data.userReviews = req.body.userReviews;
+
+        data.save().then(() => {
+          res.status(200).json({ success: true });
+        }
+        ).catch((err) => {
+          console.log(err);
+          res.status(500).json({ error: "Something went wrong" });
+        });
+      } else {
+        res.status(400).json({ error: "User not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Something went wrong" });
+    });
+});
+
+// Add movie to favorite movies route
+app.put("/api/user/:id/favoriteMovies", (req, res) => {
+  User.findById(req.params.id)
+    .then((data) => {
+      if (data) {
+        console.log(req.body.movieId);
+
+        if (data.favoriteMovies.includes(req.body.movieId)) {
+          res.status(400).json({ error: "Movie already in favorites" });
+          return;
+        }
+
+        data.favoriteMovies.push(req.body.movieId);
+
+        data.save().then(() => {
+          res.status(200).json({ success: true });
+        }
+        ).catch((err) => {
+          console.log(err);
+          res.status(500).json({ error: "Something went wrong" });
+        });
+      } else {
+        res.status(400).json({ error: "User not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Something went wrong" });
+    });
+});
+
+
+// Add movie to watch list route
+app.put("/api/user/:id/watchList", (req, res) => {
+  User.findById(req.params.id)
+    .then((data) => {
+      if (data) {
+        
+        if (data.watchList.includes(req.body.movieId)) {
+          res.status(400).json({ error: "Movie already in watch list" });
+          return;
+        }
+
+        data.watchList.push(req.body.movieId);
+
+        data.save().then(() => {
+          res.status(200).json({ success: true });
+        }
+        ).catch((err) => {
+          console.log(err);
+          res.status(500).json({ error: "Something went wrong" });
+        });
+      } else {
+        res.status(400).json({ error: "User not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Something went wrong" });
+    });
+});
+
+// Add review route
+app.post("/api/review", (req, res) => {
+  const newReview = new Review({
+    movieId: req.body.movieId,
+    review: req.body.review,
+    rating: req.body.rating,
+    userId: req.body.userId,
+    date: new Date()
+  });
+
+  newReview.save().then(() => {
+    res.status(200).json({ success: true });
+  }
+  ).catch((err) => {
+    console.log(err);
+    res.status(500).json({ error: "Something went wrong" });
+  });
+});
+
+// Get reviews route
+app.get("/api/movie/:id/reviews", (req, res) => {
+  Review.find({ movieId: req.params.id })
+    .then((data) => {
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(400).json({ error: "Reviews not found" });
       }
     })
     .catch((err) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "../components";
 import styles from "../style";
-import { ScrollableMovies } from "../components";
+import { Lists } from "../components";
 
 const Profile = ({ }) => {
     const [loading, setLoading] = useState(true);
@@ -39,10 +39,10 @@ const Profile = ({ }) => {
         return (
             <div>
                 <div className="bg-gray-800 w-full">
-                    <div className={`${styles.paddingY} ${styles.paddingX} grid grid-cols-8`}>
-                        <div className={`col-span-1 flex items-center`}>
+                    <div className={`${styles.paddingY} ${styles.paddingX} flex flex-col items-center justify-center space-y-2`}>
+                        <div className={`flex items-center`}>
                             <h1 className={`rounded-full bg-orange-500 text-white text-6xl flex items-center justify-center w-32 h-32 shadow-md`}>
-                                A
+                                {userData.username.charAt(0).toUpperCase()}
                             </h1>
                         </div>
                         <div className="flex flex-col justify-center">
@@ -52,23 +52,28 @@ const Profile = ({ }) => {
                         </div>
                     </div>
                 </div>
-                <div className={`${styles.paddingX} ${styles.paddingY} flex flex-col`}>
-                    <div>
-                        <h1 className="text-black font-bold text-2xl">Stats</h1>
+                <div className={`${styles.paddingX} ${styles.paddingY} flex flex-col items-center`}>
+                    <div className="pb-4">
+                        <h1 className="text-black font-bold text-6xl">Stats</h1>
                     </div>
                     <div className="flex flex-row space-x-20">
-                        <div>
+                        <div className="flex flex-col items-center">
                             <h2 className="text-black">Total Reviews</h2>
                             <p className="text-orange-500 py-2 text-6xl font-bold">{userData.userReviews.length}</p>
                         </div>
-                        <div>
-                            <h2 className="text-black">Total Reviews</h2>
-                            <p className="text-orange-500 py-2 text-6xl font-bold">0</p>
+                        <div className="flex flex-col items-center">
+                            <h2 className="text-black">Favorites</h2>
+                            <p className="text-orange-500 py-2 text-6xl font-bold">{userData.favoriteMovies.length}</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <h2 className="text-black">Your List</h2>
+                            <p className="text-orange-500 py-2 text-6xl font-bold">{userData.watchList.length}</p>
                         </div>
                     </div>
                 </div>
                 <div>
-                    {/* <ScrollableMovies /> */}
+                    <Lists arr={userData.favoriteMovies} title="Favorites" />
+                    <Lists arr={userData.watchList} title="Your Watch List" />
                 </div>
             </div>
         );

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../style";
-import { CircleRating, ScrollablePeople, Spinner } from "./index";
+import { CircleRating, ScrollablePeople, Spinner, Reviews } from "./index";
 import { FaList, FaHeart, FaBookmark, FaStar, FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const MovieDescription = () => {
     const [movie, setMovie] = useState();
@@ -35,9 +36,76 @@ const MovieDescription = () => {
         return hours + "h " + mins + "m";
     }
 
-    const handleList = () => {
-        
+    const handleFavorite = () => {
+        const addToList = async () => {
+            try {
+                const userId = localStorage.getItem('userId');
+
+                if (userId) {
+
+                    console.log("Here");
+                    const requestOptions = {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ "movieId": id })
+                    };
+
+                    const response = await fetch(`http://localhost:3001/api/user/${userId}/favoriteMovies`, requestOptions);
+
+                    if (response.ok) {
+                        NotificationManager.success('Added to your list!');
+                    }
+                    else if (response.status === 400) {
+                        NotificationManager.error('Movie already in your list!');
+                    }
+
+                } else {
+                    console.error('User ID not found in localStorage');
+                }
+            }
+            catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        addToList();
     }
+
+    const handleWatchList = () => {
+        const addToList = async () => {
+            try {
+                const userId = localStorage.getItem('userId');
+
+                if (userId) {
+
+                    const requestOptions = {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ "movieId": id })
+                    };
+
+                    const response = await fetch(`http://localhost:3001/api/user/${userId}/watchList`, requestOptions);
+
+                    console.log(response);
+
+                    if (response.ok) {
+                        NotificationManager.success('Added to your list!');
+                    }
+                    else if (response.status === 400) {
+                        NotificationManager.error('Movie already in your list!');
+                    }
+
+                } else {
+                    console.error('User ID not found in localStorage');
+                }
+            }
+            catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+
+        addToList();
+    };
 
     {
         if (loading) {
@@ -69,9 +137,9 @@ const MovieDescription = () => {
                                 <div className="flex flex-row py-4">
                                     <CircleRating rating={movie.vote_average} />
                                     <ul className="ml-8 inline-flex items-center space-x-4">
-                                        <li><button className="rounded-full bg-blue-950 p-4"><FaList className="text-white"/></button></li>
-                                        <li><button className="rounded-full bg-blue-950 p-4"><FaStar className="text-white"/></button></li>
-                                        <li><button className="text-white flex items-center transition hover:opacity-50"><FaPlay className="pr-2"/>Play Trailer</button></li>
+                                        <li><button className="rounded-full bg-blue-950 p-4" onClick={handleWatchList}><FaList className="text-white" /></button></li>
+                                        <li><button className="rounded-full bg-blue-950 p-4" onClick={handleFavorite}><FaStar className="text-white" /></button></li>
+                                        <li><button className="text-white flex items-center transition hover:opacity-50"><FaPlay className="pr-2" />Play Trailer</button></li>
                                     </ul>
                                 </div>
                                 <p className="italic text-neutral-300">{movie.tagline}</p>
@@ -83,6 +151,7 @@ const MovieDescription = () => {
                     <div className={`${styles.paddingX} py-4 grid grid-cols-4 sm:py-8`}>
                         <div className="col-span-3">
                             <ScrollablePeople title="Cast" link={`https://api.themoviedb.org/3/movie/${id}/credits`} options={[]} />
+                            <Reviews movieId={id} />
                         </div>
                         <div className="flex flex-col space-y-2">
                             <h3 className="font-bold">Status</h3>

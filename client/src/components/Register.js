@@ -11,7 +11,6 @@ const Register = ({ setSignedIn }) => {
     const [passwordError, setPasswordError] = useState("");
     const [username, setUsername] = useState("");
     const [usernameError, setUsernameError] = useState("");
-    const [userId, setUserId] = useState("");
 
     const navigate = useNavigate();
 
@@ -33,17 +32,31 @@ const Register = ({ setSignedIn }) => {
                 body: JSON.stringify({ "email": email, "password": password, "username": username })
             };
 
+
             fetch("http://localhost:3001/api/register", requestOptions)
                 .then((response) => {
                     if (response.status === 200) {
-                        // The user was logged in successfully
-                        NotificationManager.success('You have successfully registered!');
-                        setSignedIn(true);
-                        navigate("/");
+                        // Assuming response is in JSON format
+                        return response.json();
                     } else {
-                        // The user was not registered in successfully
-                        console.log(response);
+                        // The user was not logged in successfully
                         setEmailError("Invalid email or password");
+                        throw new Error("Registration failed");
+                    }
+                })
+                .then((data) => {
+                    // Now 'data' should contain the parsed JSON response
+                    const userId = data.userId;
+
+                    if (userId) {
+                        // The user was logged in successfully
+                        NotificationManager.success('You have successfully registerd!');
+                        localStorage.setItem("userId", userId);
+                        setSignedIn(true);
+                        navigate("/profile");
+                    } else {
+                        // Handle the case where userId is not present in the response
+                        setEmailError("User ID not found in the response");
                     }
                 })
                 .catch((error) => {
